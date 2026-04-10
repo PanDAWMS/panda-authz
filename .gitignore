@@ -1,2 +1,4 @@
 .idea
+./tests/__pycache__
+./src/panda_authz/__pycache__
 src/panda_authz.*egg_info
