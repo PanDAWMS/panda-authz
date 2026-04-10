@@ -1,0 +1,4 @@
+# Production role - full access
+p, atlas-adc-pandamon, user_contact, read, {}, {}, allow
+p, atlas-adc-pandamon, task, update, {"tasktype": "prod"}, {"priority":[500,999]}, allow
+p, atlas-adc-pandamon, task, update, {"tasktype": "analy"}, {"globalshare":["Express Analysis", "User Analysis"]}, allow

@@ -1,0 +1,19 @@
+[project]
+name = "panda-authz"
+version = "0.1.0"
+dependencies = [
+  "casbin>=1.36"
+]
+
+[project.optional-dependencies]
+dev = [
+  "black",
+  "isort",
+  "flake8",
+  "mypy",
+  "pytest",
+  "pre-commit"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
