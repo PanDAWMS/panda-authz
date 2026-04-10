@@ -1,10 +1,20 @@
-import casbin
 from importlib.resources import files
-from .functions import match_object, match_constraints, match_role
+
+import casbin
+
+from .functions import match_constraints, match_object, match_role
 
 
 class AuthorizationService:
+    """Service for handling authorization using Casbin enforcer with custom functions."""
+
     def __init__(self, policy_path: str):
+        """
+        Initialize the AuthorizationService with a policy file.
+
+        Args:
+            policy_path (str): Path to the policy CSV file.
+        """
         model_path = str(files("panda_authz").joinpath("model.conf"))
 
         self.enforcer = casbin.Enforcer(model_path, policy_path)
@@ -13,6 +23,20 @@ class AuthorizationService:
         self.enforcer.add_function("match_object", match_object)
         self.enforcer.add_function("match_constraints", match_constraints)
 
-    def enforce(self, sub, obj, act, params=None):
+    def enforce(
+        self, roles: list[str], obj: str, act: str, params: dict | None = None
+    ) -> bool:
+        """
+        Enforce authorization for subject with list of roles, object, and action with optional parameters.
+
+        Args:
+            roles (list[str]): The roles of the subject (user) requesting access.
+            obj (str): The object (resource) being accessed.
+            act (str): The action being performed.
+            params (dict, optional): Additional parameters for enforcement. Defaults to None.
+
+        Returns:
+            bool: True if access is granted, False otherwise.
+        """
         params = params or {}
-        return self.enforcer.enforce(sub, obj, act, params)
+        return self.enforcer.enforce(roles, obj, act, params)

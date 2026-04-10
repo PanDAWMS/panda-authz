@@ -1,7 +1,8 @@
-import pytest
 from pathlib import Path
-from panda_authz.service import AuthorizationService
 
+import pytest
+
+from panda_authz.service import AuthorizationService
 
 
 @pytest.fixture(scope="module")
@@ -9,9 +10,6 @@ def authz():
     policy_file = Path(__file__).parent / "policy_test.csv"
     return AuthorizationService(str(policy_file))
 
-def test_authorization_service_initializes(authz):
-    assert authz is not None
-    assert authz.enforcer is not None
 
 @pytest.mark.parametrize(
     "roles, expected",
@@ -23,12 +21,15 @@ def test_authorization_service_initializes(authz):
     ],
 )
 def test_user_contact_read_access(authz, roles, expected):
-    assert authz.enforce(
-        roles,
-        {"type": "user_contact"},
-        "read",
-        {},
-    ) is expected
+    assert (
+        authz.enforce(
+            roles,
+            {"type": "user_contact"},
+            "read",
+            {},
+        )
+        is expected
+    )
 
 
 @pytest.mark.parametrize(
@@ -44,15 +45,18 @@ def test_user_contact_read_access(authz, roles, expected):
     ],
 )
 def test_prod_task_priority_update(authz, new, expected):
-    assert authz.enforce(
-        ["atlas-adc-pandamon"],
-        {
-            "type": "task",
-            "tasktype": "prod",
-        },
-        "update",
-        new,
-    ) is expected
+    assert (
+        authz.enforce(
+            ["atlas-adc-pandamon"],
+            {
+                "type": "task",
+                "tasktype": "prod",
+            },
+            "update",
+            new,
+        )
+        is expected
+    )
 
 
 @pytest.mark.parametrize(
@@ -66,15 +70,18 @@ def test_prod_task_priority_update(authz, new, expected):
     ],
 )
 def test_analy_task_globalshare_update(authz, new, expected):
-    assert authz.enforce(
-        ["atlas-adc-pandamon"],
-        {
-            "type": "task",
-            "tasktype": "analy",
-        },
-        "update",
-        new,
-    ) is expected
+    assert (
+        authz.enforce(
+            ["atlas-adc-pandamon"],
+            {
+                "type": "task",
+                "tasktype": "analy",
+            },
+            "update",
+            new,
+        )
+        is expected
+    )
 
 
 @pytest.mark.parametrize(
@@ -86,9 +93,12 @@ def test_analy_task_globalshare_update(authz, new, expected):
     ],
 )
 def test_wrong_object_or_action_denied(authz, obj, act):
-    assert authz.enforce(
-        ["atlas-adc-pandamon"],
-        obj,
-        act,
-        {},
-    ) is False
+    assert (
+        authz.enforce(
+            ["atlas-adc-pandamon"],
+            obj,
+            act,
+            {},
+        )
+        is False
+    )
