@@ -1,6 +1,6 @@
 [project]
 name = "panda-authz"
-version = "0.1.0"
+dynamic = ["version"]
 dependencies = [
   "casbin>=1.36"
 ]
@@ -15,5 +15,23 @@ dev = [
   "pre-commit"
 ]
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.package-data]
+panda_authz = ["*.conf"]
+
+[tool.setuptools.dynamic]
+version = {attr = "panda_authz.__version__"}
+
+[tool.semantic_release]
+version_variable = "src/panda_authz/__init__.py:__version__"
+branch = "main"
+upload_to_pypi = false
+upload_to_repository = false
+build_command = ""

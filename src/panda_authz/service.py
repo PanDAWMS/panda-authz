@@ -1,4 +1,4 @@
-from importlib.resources import files
+from importlib.resources import as_file, files
 
 import casbin
 
@@ -15,13 +15,15 @@ class AuthorizationService:
         Args:
             policy_path (str): Path to the policy CSV file.
         """
-        model_path = str(files("panda_authz").joinpath("model.conf"))
-
-        self.enforcer = casbin.Enforcer(model_path, policy_path)
-
-        self.enforcer.add_function("match_role", match_role)
-        self.enforcer.add_function("match_object", match_object)
-        self.enforcer.add_function("match_constraints", match_constraints)
+        model_ref = files("panda_authz").joinpath("model.conf")
+        try:
+            with as_file(model_ref) as model_path:
+                self.enforcer = casbin.Enforcer(str(model_path), policy_path)
+                self.enforcer.add_function("match_role", match_role)
+                self.enforcer.add_function("match_object", match_object)
+                self.enforcer.add_function("match_constraints", match_constraints)
+        except Exception as e:
+            raise RuntimeError("Failed to init AuthorizationService") from e
 
     def enforce(
         self, roles: list[str], obj: str, act: str, params: dict | None = None
