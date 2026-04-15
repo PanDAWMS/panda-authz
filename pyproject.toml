@@ -39,5 +39,5 @@ version = {attr = "panda_authz.__version__"}
 version_variable = "src/panda_authz/__init__.py:__version__"
 branch = "main"
 upload_to_pypi = false
-upload_to_repository = false
+upload_to_repository = true
 build_command = ""
