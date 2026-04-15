@@ -41,3 +41,4 @@ branch = "main"
 upload_to_pypi = false
 upload_to_repository = true
 build_command = ""
+commit_version_number = true
