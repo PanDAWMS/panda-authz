@@ -33,7 +33,7 @@ include-package-data = true
 panda_authz = ["*.conf"]
 
 [tool.setuptools.dynamic]
-version = {attr = "panda_authz.__version__"}
+version = {file = "src/panda_authz/__init__.py"}
 
 [tool.semantic_release]
 version_variable = "src/panda_authz/__init__.py:__version__"
