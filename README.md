@@ -20,7 +20,7 @@ pip install panda-authz
 
 ## Quick Start
 
-Create a policy file:
+Create a policy file, more about the policy format in the [documentation](docs/policy-format.md):
 
 ```text
 # policy.csv
@@ -45,6 +45,8 @@ allowed = authz.enforce(
 
 print(allowed)  # True
 ```
+
+more examples in the [documentation](docs/examples.md).
 
 ### Django Integration
 
@@ -72,9 +74,3 @@ if not authz.enforce(
 ):
     raise PermissionDenied()
 ```
-
-## Documentation
-
-- [Policy Format](docs/policy-format.md)
-- [Examples](docs/examples.md)
-
