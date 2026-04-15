@@ -32,10 +32,7 @@ Create and use the authorization service:
 
 ```python
 from panda_authz.service import AuthorizationService
-
-
 authz = AuthorizationService("policy.csv")
-
 allowed = authz.enforce(
     ["atlas-adc-pandamon"],
     {"type": "user_contact"},
@@ -53,10 +50,7 @@ more examples in the [documentation](docs/examples.md).
 ```python
 # oauth/authz.py
 from django.conf import settings
-
 from panda_authz.service import AuthorizationService
-
-
 authz = AuthorizationService(settings.AUTHZ_POLICY_FILE)
 ```
 
@@ -64,8 +58,6 @@ Then use it in views or service code:
 
 ```python
 from oauth.authz import authz
-
-
 if not authz.enforce(
     request.user_roles,
     {"type": "user_contact"},
