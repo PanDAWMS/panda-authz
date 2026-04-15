@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.1.0 (2026-04-15)
+
+### Features
+
+- Do commit new version before build and publish
+  ([`445104f`](https://github.com/PanDAWMS/panda-authz/commit/445104f778cb8ec2663b99e782bb4daff1cabaa1))
+
+
 ## v1.0.0 (2026-04-15)
 
 ### Bug Fixes
