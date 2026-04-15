@@ -2,6 +2,17 @@
 
 <!-- version list -->
 
+## v1.2.0 (2026-04-15)
+
+### Features
+
+- Move version to separate file
+  ([`ec56e0e`](https://github.com/PanDAWMS/panda-authz/commit/ec56e0ef198e0fb8705f644a41834c06af2ce28f))
+
+- Update pyproject.toml
+  ([`c253b3b`](https://github.com/PanDAWMS/panda-authz/commit/c253b3b471c7851544c1c0d9845e261acf704f53))
+
+
 ## v1.1.0 (2026-04-15)
 
 ### Features
