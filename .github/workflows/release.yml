@@ -23,15 +23,14 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install dependencies
+      - name: Install tools and dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install build pytest python-semantic-release
-          pip install .
+          pip install build casbin pytest python-semantic-release
 
       - name: Run tests
         run: |
-          pip install pytest
+          export PYTHONPATH=$PYTHONPATH:$(pwd)/src
           pytest tests/
 
       - name: Semantic release
@@ -40,7 +39,9 @@ jobs:
         run: semantic-release version
 
       - name: Build package
-        run: python -m build
+        run: |
+          rm -rf src/*.egg-info dist/ build/  # remove old build artifacts
+          python -m build
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1

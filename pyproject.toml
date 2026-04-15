@@ -3,7 +3,6 @@ name = "panda-authz"
 description = "PanDA Authorization Library"
 dynamic = ["version"]
 readme = "README.md"
-license = {text = "Apache-2.0"}
 authors = [
     { name = "PanDA Team", email = "panda-support@cern.ch" },
 ]
