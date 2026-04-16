@@ -38,6 +38,7 @@ version = {file = "VERSION"}
 branch = "main"
 version_source = "file"
 version_file = "VERSION"
+version_variables = ["VERSION:."]
 commit_version_number = true
 upload_to_pypi = false
 upload_to_repository = true
