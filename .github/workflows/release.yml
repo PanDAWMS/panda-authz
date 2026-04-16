@@ -43,5 +43,5 @@ jobs:
           rm -rf src/*.egg-info dist/ build/  # remove old build artifacts
           python -m build
 
-#      - name: Publish to PyPI
-#        uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
