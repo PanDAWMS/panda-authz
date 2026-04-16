@@ -37,8 +37,6 @@ jobs:
         run: |
           echo "---- VERSION CONTENT ----"
           cat -A VERSION
-          echo "---- HEXDUMP ----"
-          hexdump -C VERSION
       - name: Semantic release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

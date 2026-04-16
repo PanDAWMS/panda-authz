@@ -35,8 +35,9 @@ panda_authz = ["*.conf"]
 version = {file = "VERSION"}
 
 [tool.semantic_release]
-version_variables = ["VERSION"]
 branch = "main"
+version_source = "file"
+version_file = "VERSION"
 commit_version_number = true
 upload_to_pypi = false
 upload_to_repository = true
