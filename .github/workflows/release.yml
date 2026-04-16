@@ -33,10 +33,6 @@ jobs:
           export PYTHONPATH=$PYTHONPATH:$(pwd)/src
           pytest tests/
 
-      - name: Debug VERSION file
-        run: |
-          echo "---- VERSION CONTENT ----"
-          cat -A VERSION
       - name: Semantic release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -32,13 +32,10 @@ include-package-data = true
 panda_authz = ["*.conf"]
 
 [tool.setuptools.dynamic]
-version = {file = "VERSION"}
+version = {attr = "panda_authz.__version__"}
 
 [tool.semantic_release]
 branch = "main"
-version_source = "file"
-version_file = "VERSION"
-version_variables = ["VERSION:."]
 commit_version_number = true
 upload_to_pypi = false
 upload_to_repository = true
