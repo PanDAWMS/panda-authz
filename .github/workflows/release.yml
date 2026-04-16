@@ -33,6 +33,12 @@ jobs:
           export PYTHONPATH=$PYTHONPATH:$(pwd)/src
           pytest tests/
 
+      - name: Debug VERSION file
+        run: |
+          echo "---- VERSION CONTENT ----"
+          cat -A VERSION
+          echo "---- HEXDUMP ----"
+          hexdump -C VERSION
       - name: Semantic release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -43,5 +49,5 @@ jobs:
           rm -rf src/*.egg-info dist/ build/  # remove old build artifacts
           python -m build
 
-      - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+#      - name: Publish to PyPI
+#        uses: pypa/gh-action-pypi-publish@release/v1
