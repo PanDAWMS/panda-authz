@@ -62,7 +62,7 @@ The package ships with the following model:
 
 ```ini
 [request_definition]
-r = roles, obj_type, act, obj, new
+r = roles, obj_type, act, obj, params
 
 [policy_definition]
 p = role, obj_type, act, obj_constraints, act_constraints, eft
