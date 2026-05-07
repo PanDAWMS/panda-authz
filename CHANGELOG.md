@@ -2,6 +2,18 @@
 
 <!-- version list -->
 
+## v2.0.0 (2026-05-07)
+
+### Features
+
+- Add object type to enforce method
+  ([`5d99039`](https://github.com/PanDAWMS/panda-authz/commit/5d99039e8048cab7f1f88ba538db78b7bf1ca9b8))
+
+### Breaking Changes
+
+- The enforce() signature has changed from 4 to 5 arguments.
+
+
 ## v1.1.0 (2026-05-07)
 
 
