@@ -24,8 +24,8 @@ Create a policy file, more about the policy format in the [documentation](docs/p
 
 ```text
 # policy.csv
-p, atlas-adc-pandamon, user_contact, read, {}, {}, allow
-p, atlas-adc-pandamon, task, update, {"tasktype": "prod"}, {"priority": [500, 999]}, allow
+p, panda, user_contact, read, {}, {}, allow
+p, panda, task, update, {"tasktype": "prod"}, {"priority": [500, 999]}, allow
 ```
 
 Create and use the authorization service:
@@ -34,9 +34,10 @@ Create and use the authorization service:
 from panda_authz.service import AuthorizationService
 authz = AuthorizationService("policy.csv")
 allowed = authz.enforce(
-    ["atlas-adc-pandamon"],
-    {"type": "user_contact"},
+    ["panda"],
+    "user_contact",
     "read",
+    {},
     {},
 )
 
@@ -51,7 +52,7 @@ more examples in the [documentation](docs/examples.md).
 # oauth/authz.py
 from django.conf import settings
 from panda_authz.service import AuthorizationService
-authz = AuthorizationService(settings.AUTHZ_POLICY_FILE)
+authz = AuthorizationService(settings.AUTHZ_POLICY_FILE_PATH)
 ```
 
 Then use it in views or service code:
@@ -60,8 +61,9 @@ Then use it in views or service code:
 from oauth.authz import authz
 if not authz.enforce(
     request.user_roles,
-    {"type": "user_contact"},
+    "user_contact",
     "read",
+    {},
     {},
 ):
     raise PermissionDenied()

@@ -16,16 +16,17 @@ def authz():
     [
         ([], False),
         (["some_role"], False),
-        (["atlas-adc-pandamon"], True),
-        (["atlas-adc-pandamon", "other_role"], True),
+        (["panda"], True),
+        (["panda", "other_role"], True),
     ],
 )
 def test_user_contact_read_access(authz, roles, expected):
     assert (
         authz.enforce(
             roles,
-            {"type": "user_contact"},
+            "user_contact",
             "read",
+            {},
             {},
         )
         is expected
@@ -47,12 +48,12 @@ def test_user_contact_read_access(authz, roles, expected):
 def test_prod_task_priority_update(authz, new, expected):
     assert (
         authz.enforce(
-            ["atlas-adc-pandamon"],
+            ["panda"],
+            "task",
+            "update",
             {
-                "type": "task",
                 "tasktype": "prod",
             },
-            "update",
             new,
         )
         is expected
@@ -72,12 +73,12 @@ def test_prod_task_priority_update(authz, new, expected):
 def test_analy_task_globalshare_update(authz, new, expected):
     assert (
         authz.enforce(
-            ["atlas-adc-pandamon"],
+            ["panda"],
+            "task",
+            "update",
             {
-                "type": "task",
                 "tasktype": "analy",
             },
-            "update",
             new,
         )
         is expected
@@ -85,19 +86,20 @@ def test_analy_task_globalshare_update(authz, new, expected):
 
 
 @pytest.mark.parametrize(
-    "obj, act",
+    "obj_type, obj, act",
     [
-        ({"type": "task", "tasktype": "prod"}, "read"),
-        ({"type": "dataset"}, "update"),
-        ({"type": "user_contact"}, "update"),
+        ("task", {"tasktype": "prod"}, "read"),
+        ("dataset", {}, "update"),
+        ("user_contact", {}, "update"),
     ],
 )
-def test_wrong_object_or_action_denied(authz, obj, act):
+def test_wrong_object_or_action_denied(authz, obj_type, obj, act):
     assert (
         authz.enforce(
-            ["atlas-adc-pandamon"],
-            obj,
+            ["panda"],
+            obj_type,
             act,
+            obj,
             {},
         )
         is False

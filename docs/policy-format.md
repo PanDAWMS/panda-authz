@@ -3,26 +3,27 @@
 The `enforce()` method takes four arguments:
 
 ```python
-authz.enforce(roles, obj, act, params)
+authz.enforce(roles, obj_type, act, obj, params)
 ```
 
-| Argument | Type        | Description                    |
-|----------| ----------- | ------------------------------ |
-| `roles`  | `list[str]` | Roles assigned to the user     |
-| `obj`    | `dict`      | Existing object being accessed |
-| `act`    | `str`       | Action being performed         |
-| `params` | `dict`      | Requested modifications        |
+| Argument   | Type        | Description                    |
+|------------| ----------- |--------------------------------|
+| `roles`    | `list[str]` | Roles assigned to the user     |
+| `obj_type` | `str`       | Type of object                 |
+| `act`      | `str`       | Action being performed         |
+| `obj`      | `dict`      | Existing object being accessed |
+| `params`   | `dict`      | Requested modifications        |
 
 Example:
 
 ```python
 authz.enforce(
-    ["atlas-adc-pandamon"],
+    ["panda"],
+    "task",
+    "update",
     {
-        "type": "task",
         "tasktype": "prod",
     },
-    "update",
     {
         "priority": 700,
     },
@@ -61,7 +62,7 @@ The package ships with the following model:
 
 ```ini
 [request_definition]
-r = roles, obj, act, new
+r = roles, obj_type, act, obj, new
 
 [policy_definition]
 p = role, obj_type, act, obj_constraints, act_constraints, eft
@@ -70,7 +71,7 @@ p = role, obj_type, act, obj_constraints, act_constraints, eft
 e = some(where (p.eft == allow))
 
 [matchers]
-m = r.obj.type == p.obj_type && \
+m = r.obj_type == p.obj_type && \
     r.act == p.act && \
     match_role(r.roles, p.role) && \
     match_object(r.obj, p.obj_constraints) && \

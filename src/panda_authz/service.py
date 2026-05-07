@@ -26,19 +26,26 @@ class AuthorizationService:
             raise RuntimeError("Failed to init AuthorizationService") from e
 
     def enforce(
-        self, roles: list[str], obj: str, act: str, params: dict | None = None
+        self,
+        roles: list[str],
+        obj_type: str,
+        act: str,
+        obj: dict | None = None,
+        params: dict | None = None,
     ) -> bool:
         """
         Enforce authorization for subject with list of roles, object, and action with optional parameters.
 
         Args:
             roles (list[str]): The roles of the subject (user) requesting access.
-            obj (str): The object (resource) being accessed.
+            obj_type (str): The object (resource) being accessed.
             act (str): The action being performed.
+            obj (dict, optional): The object attributes for ABAC checks. Defaults to None.
             params (dict, optional): Additional parameters for enforcement. Defaults to None.
 
         Returns:
             bool: True if access is granted, False otherwise.
         """
+        obj = obj or {}
         params = params or {}
-        return self.enforcer.enforce(roles, obj, act, params)
+        return self.enforcer.enforce(roles, obj_type, act, obj, params)

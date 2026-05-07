@@ -12,9 +12,10 @@ Code:
 
 ```python
 assert authz.enforce(
-    ["atlas-adc-pandamon"],
-    {"type": "user_contact"},
+    ["panda"],
+    "user_contact"
     "read",
+    {},
     {},
 )
 ```
@@ -31,12 +32,12 @@ Allowed:
 
 ```python
 authz.enforce(
-    ["atlas-adc-pandamon"],
+    ["panda"],
+    "task",
+    "update",
     {
-        "type": "task",
         "tasktype": "prod",
     },
-    "update",
     {
         "priority": 700,
     },
@@ -48,12 +49,12 @@ Denied:
 
 ```python
 authz.enforce(
-    ["atlas-adc-pandamon"],
+    ["panda"],
+    "task",
+    "update",
     {
-        "type": "task",
         "tasktype": "prod",
     },
-    "update",
     {
         "priority": 1000,
     },
@@ -71,12 +72,12 @@ p, atlas-adc-pandamon, task, update, {"tasktype": "analy"}, {"globalshare": ["Ex
 
 ```python
 authz.enforce(
-    ["atlas-adc-pandamon"],
+    ["panda"],
+    "task",
+    "update",
     {
-        "type": "task",
         "tasktype": "analy",
     },
-    "update",
     {
         "globalshare": "Express Analysis",
     },
